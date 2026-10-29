@@ -1,20 +1,9 @@
 # taller-isi
-tp isi
 Diagrama de clases UML: Plataforma de Preguntas y Respuestas con Agente de IA
 
-Integrantes: Santiago Juarez, Justo Campoy, Enzo Mercado, Santiago Miloch
+Integrantes:
+    Santiago Juarez
+    Justo Campoy
+    Enzo Mercado 
+    Santiago Miloch
 
-Qué se hizo con draw.io
-
-Para este trabajo realizamos el diagrama de clases UML de nuestro sistema utilizando draw.io (diagrams.net). En el diagrama modelamos las clases con sus atributos y métodos, las interfaces, las clases abstractas y las relaciones entre ellas. Para distinguir los elementos usamos la notación UML estándar.
-
-
-Patrones de diseño y principios aplicados
-
-Aplicamos dos patrones de diseño. El patrón Strategy está en la interfaz GeneradorRespuesta y sus tres implementaciones, usadas por AgenteIA, y permite intercambiar el proveedor de IA sin tocar el resto del sistema. El patrón Factory está en AutorFactory, que centraliza la creación de autores y evita que el resto del código dependa de las clases concretas.
-
-También tuvimos en cuenta los conceptos de  herencia en Autor y Usuario, abstracción mediante clases abstractas e interfaces, y polimorfismo en Votable, Autor y GeneradorRespuesta.
-
-Conclusión
-
-El diagrama representa una plataforma donde los usuarios publican y votan contenido, y donde las respuestas pueden venir de personas o de un agente de IA configurable. El diseño con Strategy y Factory deja el sistema flexible: se puede agregar un nuevo proveedor de IA o un nuevo tipo de autor sin modificar las demás clases.
