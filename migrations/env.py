@@ -1,11 +1,9 @@
-
 from logging.config import fileConfig
 
 from alembic import context
 
 from myapp import create_app
 from myapp.extensions import db
-from myapp.models import User
 
 config = context.config
 
@@ -54,4 +52,3 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
-
