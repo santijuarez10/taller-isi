@@ -1,5 +1,3 @@
-
 class Tag:
-
-    def __init__(tag, nombre: str):
-        tag.nombre = nombre
+    def __init__(self, nombre: str):
+        self.nombre = nombre

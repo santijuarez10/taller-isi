@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ user.name }}</h1>
+    <p class="muted">{{ user.email }}</p>
+
+    <h2>Preguntas publicadas</h2>
+    <ul class="list">
+        {% for pregunta in user.preguntas %}
+            <li><a href="{{ url_for('preguntas.detail', pregunta_id=pregunta.id) }}">{{ pregunta.titulo }}</a></li>
+        {% else %}
+            <li>Ninguna todavía.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="actions">
+        <a class="button" href="{{ url_for('users.edit', user_id=user.id) }}">Editar</a>
+        <form method="post" action="{{ url_for('users.delete', user_id=user.id) }}"
+              data-confirm="¿Borrar este usuario?">
+            <button type="submit" class="danger">Borrar</button>
+        </form>
+    </div>
+{% endblock %}

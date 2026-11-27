@@ -52,6 +52,8 @@ class GeminiStrategy(GeneradorRespuesta):
         except error.HTTPError as e:
             raise RuntimeError(f"GeminiStrategy: error HTTP {e.code} de la API") from e
         except error.URLError as e:
-            raise RuntimeError(f"GeminiStrategy: no se pudo conectar ({e.reason})") from e
+            raise RuntimeError(
+                f"GeminiStrategy: no se pudo conectar ({e.reason})"
+            ) from e
         except (KeyError, IndexError, TypeError, ValueError) as e:
             raise RuntimeError("GeminiStrategy: respuesta inesperada de la API") from e

@@ -1,4 +1,3 @@
-      
 from __future__ import annotations
 
 from datetime import date
@@ -12,16 +11,15 @@ if TYPE_CHECKING:
 
 
 class Respuesta(Votable):
-
     def __init__(
         self,
         cuerpo: str,
         fechaPublicacion: date,
         esAceptada: bool,
         autor: Autor,
-        pregunta: Pregunta
+        pregunta: Pregunta,
     ):
-        
+
         # atributos propios
         self.cuerpo = cuerpo
         self.fechaPublicacion = fechaPublicacion
@@ -33,5 +31,3 @@ class Respuesta(Votable):
 
         # registramos la respuesta en su pregunta
         pregunta.respuestas.append(self)
-        
-        

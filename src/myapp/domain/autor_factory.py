@@ -5,7 +5,6 @@ from myapp.domain.usuario_general import UsuarioGeneral
 
 
 class AutorFactory:
-
     @staticmethod
     def crearAutor(tipo: str, nombre: str, email: str, password: str) -> Autor:
         if tipo == "admin":

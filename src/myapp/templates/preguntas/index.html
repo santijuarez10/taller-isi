@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Preguntas{% endblock %}
+
+{% block content %}
+    <h1>Preguntas</h1>
+    <p><a class="button" href="{{ url_for('preguntas.new') }}">Hacer una pregunta</a></p>
+
+    <ul class="list">
+        {% for pregunta in preguntas %}
+            <li>
+                <a href="{{ url_for('preguntas.detail', pregunta_id=pregunta.id) }}">{{ pregunta.titulo }}</a>
+                <span class="muted">
+                    {{ pregunta.categoria.nombre }} · {{ pregunta.autor.name }} ·
+                    {{ pregunta.fecha_publicacion.strftime('%d/%m/%Y') }}
+                </span>
+            </li>
+        {% else %}
+            <li>Todavía no hay preguntas.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

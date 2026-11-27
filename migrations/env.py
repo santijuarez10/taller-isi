@@ -3,16 +3,25 @@ from logging.config import fileConfig
 from alembic import context
 
 from myapp import create_app
+from myapp.config import Config
 from myapp.extensions import db
 
 config = context.config
 
 if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+    fileConfig(config.config_file_name, disable_existing_loggers=False)
 
 target_metadata = db.metadata
 
-app = create_app()
+
+class MigrationConfig(Config):
+    # Los tests pueden indicar otra base; si no, se usa DATABASE_URL.
+    SQLALCHEMY_DATABASE_URI = config.attributes.get(
+        "database_url", Config.SQLALCHEMY_DATABASE_URI
+    )
+
+
+app = create_app(MigrationConfig)
 
 
 def run_migrations_offline() -> None:
