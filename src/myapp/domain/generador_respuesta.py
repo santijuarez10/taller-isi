@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 
 
 class GeneradorRespuesta(ABC):
-    """Interfaz Strategy para generar el texto de una respuesta a partir de una pregunta."""
+    """Interfaz Strategy: genera el texto de una respuesta a una pregunta."""
 
     @abstractmethod
     def generar(self, pregunta: Pregunta) -> str:

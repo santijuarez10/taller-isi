@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% set heading = "Editar pregunta" if pregunta_id else "Nueva pregunta" %}
+{% block title %}{{ heading }}{% endblock %}
+
+{% block content %}
+    <h1>{{ heading }}</h1>
+
+    {% if not users %}
+        <p>Primero <a href="{{ url_for('users.new') }}">creá un usuario</a> para poder preguntar.</p>
+    {% else %}
+        <form method="post"
+              action="{{ url_for('preguntas.update', pregunta_id=pregunta_id) if pregunta_id else url_for('preguntas.create') }}">
+            <label>
+                Título
+                <input type="text" name="titulo" value="{{ data.get('titulo', '') }}" maxlength="200" required>
+            </label>
+            {% if errors.titulo %}<p class="error">{{ errors.titulo }}</p>{% endif %}
+
+            <label>
+                Detalle
+                <textarea name="cuerpo" rows="6" required>{{ data.get('cuerpo', '') }}</textarea>
+            </label>
+            {% if errors.cuerpo %}<p class="error">{{ errors.cuerpo }}</p>{% endif %}
+
+            <label>
+                Autor
+                <select name="autor_id" required>
+                    {% for user in users %}
+                        <option value="{{ user.id }}"
+                            {% if data.get('autor_id')|string == user.id|string %}selected{% endif %}>
+                            {{ user.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </label>
+            {% if errors.autor_id %}<p class="error">{{ errors.autor_id }}</p>{% endif %}
+
+            <label>
+                Categoría
+                <input type="text" name="categoria" value="{{ data.get('categoria', '') }}" maxlength="80" required>
+            </label>
+            {% if errors.categoria %}<p class="error">{{ errors.categoria }}</p>{% endif %}
+
+            <label>
+                Tags (separados por comas)
+                <input type="text" name="tags" value="{{ data.get('tags', '') }}">
+            </label>
+            {% if errors.tags %}<p class="error">{{ errors.tags }}</p>{% endif %}
+
+            <button type="submit">Guardar</button>
+        </form>
+    {% endif %}
+{% endblock %}

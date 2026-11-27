@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% set heading = "Editar usuario" if user_id else "Nuevo usuario" %}
+{% block title %}{{ heading }}{% endblock %}
+
+{% block content %}
+    <h1>{{ heading }}</h1>
+
+    <form method="post"
+          action="{{ url_for('users.update', user_id=user_id) if user_id else url_for('users.create') }}">
+        <label>
+            Nombre
+            <input type="text" name="name" value="{{ data.get('name', '') }}" maxlength="120" required>
+        </label>
+        {% if errors.name %}<p class="error">{{ errors.name }}</p>{% endif %}
+
+        <label>
+            Email
+            <input type="email" name="email" value="{{ data.get('email', '') }}" maxlength="255" required>
+        </label>
+        {% if errors.email %}<p class="error">{{ errors.email }}</p>{% endif %}
+
+        <button type="submit">Guardar</button>
+    </form>
+{% endblock %}

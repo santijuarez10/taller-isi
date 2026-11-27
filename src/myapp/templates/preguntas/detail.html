@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}{{ pregunta.titulo }}{% endblock %}
+
+{% block content %}
+    <h1>{{ pregunta.titulo }}</h1>
+    <p class="muted">
+        {{ pregunta.categoria.nombre }} ·
+        <a href="{{ url_for('users.detail', user_id=pregunta.autor.id) }}">{{ pregunta.autor.name }}</a> ·
+        {{ pregunta.fecha_publicacion.strftime('%d/%m/%Y') }}
+    </p>
+    <p class="body">{{ pregunta.cuerpo }}</p>
+    <p>{% for tag in pregunta.tags %}<span class="tag">{{ tag.nombre }}</span> {% endfor %}</p>
+
+    <div class="actions">
+        <a class="button" href="{{ url_for('preguntas.edit', pregunta_id=pregunta.id) }}">Editar</a>
+        <form method="post" action="{{ url_for('preguntas.delete', pregunta_id=pregunta.id) }}"
+              data-confirm="¿Borrar esta pregunta?">
+            <button type="submit" class="danger">Borrar</button>
+        </form>
+    </div>
+
+    <section id="respuestas">
+        <h2>Respuestas ({{ pregunta.respuestas|length }})</h2>
+        <ul class="list">
+            {% for respuesta in pregunta.respuestas %}
+                <li>
+                    <p class="body">{{ respuesta.cuerpo }}</p>
+                    <span class="muted">
+                        <a href="{{ url_for('users.detail', user_id=respuesta.autor.id) }}">{{ respuesta.autor.name }}</a> ·
+                        {{ respuesta.fecha_publicacion.strftime('%d/%m/%Y') }}
+                    </span>
+                </li>
+            {% else %}
+                <li class="muted">Todavía no hay respuestas.</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Tu respuesta</h3>
+        {% if not users %}
+            <p>Primero <a href="{{ url_for('users.new') }}">creá un usuario</a> para poder responder.</p>
+        {% else %}
+            <form method="post" action="{{ url_for('preguntas.responder', pregunta_id=pregunta.id) }}">
+                <label>
+                    Respuesta
+                    <textarea name="cuerpo" rows="4" required>{{ data.get('cuerpo', '') }}</textarea>
+                </label>
+                {% if errors.cuerpo %}<p class="error">{{ errors.cuerpo }}</p>{% endif %}
+
+                <label>
+                    Autor
+                    <select name="autor_id" required>
+                        {% for user in users %}
+                            <option value="{{ user.id }}"
+                                {% if data.get('autor_id')|string == user.id|string %}selected{% endif %}>
+                                {{ user.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </label>
+                {% if errors.autor_id %}<p class="error">{{ errors.autor_id }}</p>{% endif %}
+
+                <button type="submit">Responder</button>
+            </form>
+        {% endif %}
+    </section>
+{% endblock %}

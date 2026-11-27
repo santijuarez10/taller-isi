@@ -53,6 +53,8 @@ class OpenAIStrategy(GeneradorRespuesta):
         except error.HTTPError as e:
             raise RuntimeError(f"OpenAIStrategy: error HTTP {e.code} de la API") from e
         except error.URLError as e:
-            raise RuntimeError(f"OpenAIStrategy: no se pudo conectar ({e.reason})") from e
+            raise RuntimeError(
+                f"OpenAIStrategy: no se pudo conectar ({e.reason})"
+            ) from e
         except (KeyError, IndexError, TypeError, ValueError) as e:
             raise RuntimeError("OpenAIStrategy: respuesta inesperada de la API") from e

@@ -3,11 +3,17 @@
 {% block title %}Usuarios{% endblock %}
 
 {% block content %}
-    <h2>Listado de usuarios</h2>
+    <h1>Listado de usuarios</h1>
+    <p><a class="button" href="{{ url_for('users.new') }}">Nuevo usuario</a></p>
 
-    <ul>
+    <ul class="list">
         {% for user in users %}
-            <li>{{ user.name }} - {{ user.email }}</li>
+            <li>
+                <a href="{{ url_for('users.detail', user_id=user.id) }}">{{ user.name }}</a>
+                <span class="muted">{{ user.email }}</span>
+            </li>
+        {% else %}
+            <li>Todavía no hay usuarios.</li>
         {% endfor %}
     </ul>
 {% endblock %}

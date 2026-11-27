@@ -8,7 +8,6 @@ if TYPE_CHECKING:
 
 
 class Voto:
-
     def __init__(self, valor: int, usuario: Usuario, votable: Votable):
         # atributo propio
         self.valor = valor
